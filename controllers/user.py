@@ -1,4 +1,4 @@
-from flask import render_template, request, g, url_for, flash, redirect
+from flask import render_template, request, g, url_for, flash, redirect, session
 from flask.ext.login import login_required, login_user
 
 from application import app, db
@@ -7,7 +7,12 @@ from models.question import Question
 
 @app.route('/')
 def home():
-    return render_template('index.html')
+    error = None
+    if 'error' in session:
+        error = session['error']
+        session['error'] = None
+
+    return render_template('index.html', error=error)
 
 @app.route('/questions')
 @login_required
