@@ -2,13 +2,14 @@
     <head>
         <title> Match Mate </title>
         <link rel="stylesheet" type="text/css" href="../static/css/main.css">
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
         <style type="text/css">
             body {
                 width: 900px;
                 margin: 0 auto;
                 font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
             }
-            .header { 
+            .header {
                 margin: 0 auto;
                 margin-top: 100px;
             }
@@ -57,7 +58,7 @@
             <div class="separator"></div>
         </div>
         <div class="login">
-            <div class="fb-login fb-login-button" data-max-rows="1" data-size="large" 
+            <div class="fb-login fb-login-button" data-max-rows="1" data-size="large"
             data-show-faces="false" data-auto-logout-link="false"></div>
         </div>
         <script>
@@ -71,12 +72,12 @@
 
             // Here we subscribe to the auth.authResponseChange JavaScript event. This event is fired
             // for any authentication related change, such as login, logout or session refresh. This means that
-            // whenever someone who was previously logged out tries to log in again, the correct case below 
-            // will be handled. 
+            // whenever someone who was previously logged out tries to log in again, the correct case below
+            // will be handled.
             FB.Event.subscribe('auth.authResponseChange', function(response) {
-                // Here we specify what we do with the response anytime this event occurs. 
+                // Here we specify what we do with the response anytime this event occurs.
                 if (response.status === 'connected') {
-                    testAPI();
+                    get_user();
                 } else if (response.status === 'not_authorized') {
                     FB.login();
                 } else {
@@ -93,12 +94,14 @@
                 ref.parentNode.insertBefore(js, ref);
             }(document));
 
-            function testAPI() {
-                console.log('Welcome!  Fetching your information.... ');
+            function get_user() {
                 FB.api('/me', function(response) {
-                    console.log('Good to see you, ' + response.name + '.');
-                    console.log(response);
-                    console.log(response.username);
+                    $.get('/_get_facebook_login',
+                        { facebook_id: response.id, name: response.name },
+                        function(data) {
+                            window.location = data;
+                        }
+                    );
                 });
             }
         </script>
