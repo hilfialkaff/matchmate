@@ -1,4 +1,4 @@
-from flask import Flask, g, session, request, url_for, render_template
+from flask import Flask, g, session, request, url_for, render_template, flash, redirect
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.login import LoginManager, current_user
 
@@ -34,8 +34,13 @@ def configure_login_manager():
     global login_manager
 
     login_manager.init_app(app)
-    login_manager.login_view = 'login'
-    login_manager.login_message = "Please log in to access this page"
+    login_manager.login_view = 'home'
+    login_manager.login_message = "Please log in first"
+
+    @login_manager.unauthorized_handler
+    def unauthorized():
+        session['error'] = login_manager.login_message
+        return redirect(url_for('home'))
 
 @app.before_request
 def before_request():
