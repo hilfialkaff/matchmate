@@ -1,4 +1,37 @@
+/* Primary Stylings */
+
 body {
-    background-image:url('background.png');
+    background-image: url('background.png');
     background-repeat: repeat;
 }
+
+/* Matchbar Stylings */
+
+.matchbar-container {
+	
+}
+
+.matchbar-slit {
+	
+}
+
+.matchbar-slit-woa {
+	
+}
+
+.matchbar-slit-aos {
+	
+}
+
+.matchbar-slit-rg {
+	
+}
+
+.matchbar-slit-qt {
+	
+}
+
+.matchbar-slit-pt {
+	
+}
+
