@@ -24,6 +24,11 @@ def questions():
 def matchmate():
     return render_template('matchmate.html')
 
+@app.route('/details')
+@login_required
+def details():
+    return render_template('details.html')
+
 @app.route('/_get_facebook_login')
 def _get_facebook_login():
     facebook_id = request.args.get('facebook_id', False, type=int)
@@ -37,6 +42,6 @@ def _get_facebook_login():
     login_user(user)
 
     if user.has_answered():
-        return url_for('questions')
-    else:
         return url_for('matchmate')
+    else:
+        return url_for('details')
