@@ -2,6 +2,8 @@
     <head>
         <title> Match Mate </title>
         <link rel="stylesheet" type="text/css" href="../static/css/main.css">
+        <link rel="stylesheet" type="text/css" href="../static/css/jquery.qtip.min.css">
+        
         <link href='http://fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
         <style type="text/css">
             body {
@@ -20,6 +22,7 @@
             .question {
                 float: left;
                 width: 500px;
+                height: 500px;
                 color: #fff;
                 border-right: 1px solid white;
             }
@@ -60,6 +63,7 @@
             .vis {
                 float: left;
                 width: 300px;
+                height: 500px;
             }
 
             .navigation {
@@ -100,6 +104,8 @@
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
         <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
         <script src="../static/js/matchmate-globals.js"></script>
+        <script src="../static/js/matchmate-draw.js"></script>
+        <script src="../static/js/jquery.qtip.min.js"></script>
         <script>
             var currentIndex = 0;
             var questions = [];
@@ -164,6 +170,16 @@
                             }
                         });
                     }
+                
+                    var a = [{
+                        "qid": qid,
+                        "category": questions[currentIndex]["category"],
+                        "name": questions[currentIndex]["name"],
+                        "val": answer,
+                        "weight": weight
+                    }];
+
+                    renderMatchbar("segment", a);
 
                     // send answers if at the last question
                     if (currentIndex === questions.length - 1) {
@@ -216,7 +232,6 @@
                         cid = question["category"];
 
                     var category = CATID2CATSTRING[cid];
-                    console.log(category);
 
                     var qDiv = d3.select('.question')
                         .attr('qid', qid);

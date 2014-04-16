@@ -107,6 +107,20 @@
                });
             }
 
+            function showOtherUser(uid) {
+                $.get('/_get_user_answer', {"id": uid}, function(data) {
+                   data = $.parseJSON(data);
+                   console.log("other: ", data);
+                });
+            }
+
+            function showMyself() {
+                $.get('/_get_user_answer', function(data) {
+                   data = $.parseJSON(data);
+                   console.log("myself: ", data);
+                });
+            }
+
             function displayUserList() {
                 $.get('/_get_other_users', function(data) {
                     data = $.parseJSON(data);
@@ -123,10 +137,13 @@
                             .text(function(d) { return d.name; })
                             .on('click', function(d) {
                                 showCompatibility(d.id);
+                                showOtherUser(d.id);
                             });
-
                 });
             }
+
+            showMyself();
+
 
 
 
