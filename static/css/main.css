@@ -24,6 +24,7 @@ body {
 
 .matchlist-tooltip {
 	font-size: 12px;
+	/* NOTE: Change font of the responses. */
 	font-weight: 600;
 	font-family: "Quicksand", sans-serif;
 
@@ -32,6 +33,10 @@ body {
     border-color: #49444a;
 
     border-width: 0px;
+}
+
+.matchlist-tooltip-response {
+	color: #3ef3f1;
 }
 
 .matchslit-yes {

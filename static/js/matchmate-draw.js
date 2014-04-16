@@ -48,9 +48,14 @@ function getMatchslitClass( _matchslitJSON )
  */
 function getMatchslitTooltip( _matchslitJSON )
 {
-	return "Question: " + _matchslitJSON[ "name" ] + "</br>" +
-		"Importance: " + _matchslitJSON[ "weight" ] + " / 5</br>" +
-		"Response: " + (_matchslitJSON[ "val" ] ? "Yes" : "No") + "</br>";
+	var cFormatResponse = function( _string )
+	{
+		return "<span class='matchlist-tooltip-response'>" + _string + "</span>"
+	};
+
+	return "Question: "+ cFormatResponse( _matchslitJSON["name"] ) + "</br>" +
+		"Importance: " + cFormatResponse( _matchslitJSON["weight"] + " / 5" ) + "</br>" +
+		"Response: " + cFormatResponse( _matchslitJSON["val"] ? "Yes" : "No" ) + "</br>";
 }
 
 // Primary Functions //
@@ -64,23 +69,6 @@ function getMatchslitTooltip( _matchslitJSON )
  */
 function renderMatchbar( _destDivID, _matchbarJSON )
 {
-	// Filter Match Slits //
-	
-	// TODO: Time permitting, find and use a better solution.
-	if ( typeof renderMatchbar.seenMatchslits == 'undefined' )
-        renderMatchbar.seenMatchslits = {};
-
-	var filteredMatchbarJSON = [];
-	for( var matchlistIdx in _matchbarJSON )
-	{
-		var matchlistJSON = _matchbarJSON[ matchlistIdx ];
-		if( !(matchlistJSON["qid"] in renderMatchbar.seenMatchslits) )
-		{
-			filteredMatchbarJSON.push( matchlistJSON );
-        	renderMatchbar.seenMatchslits[ matchlistJSON["qid"] ] = true;
-		}
-	}
-
 	// Constant Values //
 	var cDestDivID = "#" + _destDivID;
 	var cDestDivWidth = $( cDestDivID ).width();
@@ -120,13 +108,31 @@ function renderMatchbar( _destDivID, _matchbarJSON )
 			cMatchslitPadding;
 	};
 
+	// Create Container SVG //
+	{
+		var destElement = d3.select( cDestDivID ).select( ".matchbar" );
+
+		if( destElement.empty() )
+			d3.select( cDestDivID ).append( "svg" ).attr( "class", "matchbar" );
+	}
+
+	// Destroy Old Match Slits //
+	{
+		for( var matchslitIdx in _matchbarJSON )
+		{
+			var matchslitJSON = _matchbarJSON[ matchslitIdx ];
+			var matchslitElement = d3.select( cDestDivID )
+				.select( "#" + getMatchslitID(matchslitJSON) );
+
+			matchslitElement.remove();
+		}
+	}
+
 	// Render New Match Slits //
 	{
-		var destElement = d3.select( cDestDivID ).append( "svg" )
-			.attr( "class", "matchbar" );
-
-		var matchslitElements = destElement.selectAll( "matchslit" )
-			.data( filteredMatchbarJSON ).enter().append( "rect" )
+		var destElement = d3.select( cDestDivID ).select( ".matchbar" );
+		var matchslitElements = destElement.selectAll( "secrets" )
+			.data( _matchbarJSON ).enter().append( "rect" )
 			.attr( "id", getMatchslitID )
 			.attr( "class", getMatchslitClass )
 			.attr( "x", cMatchslitMaxWidth / 2.0 )
@@ -154,5 +160,6 @@ function renderMatchbar( _destDivID, _matchbarJSON )
 			} );
 		} );
 	}
+
 }
 
