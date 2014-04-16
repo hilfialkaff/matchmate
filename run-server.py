@@ -1,8 +1,24 @@
 import argparse
 
 from application import create_app, db
+from models import Question
 
-if __name__ == '__main__':
+QUESTION_FILE = "./files/questions.csv"
+
+def populate():
+    questions_exist = Question.query.all()
+    if questions_exist:
+        return
+
+    with open(QUESTION_FILE) as f:
+        for line in f:
+            [question, type] = line.strip('\n').split(',')
+            new_question = Question(question, type)
+
+            db.session.add(new_question)
+        db.session.commit()
+
+def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--reset_db", action='store_true', help="Delete all code in database")
 
@@ -14,4 +30,8 @@ if __name__ == '__main__':
         db.drop_all()
 
     app = create_app()
+    populate()
     app.run(host=app.config['HOST'], port=app.config['PORT'])
+
+if __name__ == '__main__':
+    main()
