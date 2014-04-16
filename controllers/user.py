@@ -71,12 +71,14 @@ def _set_user_info():
 @app.route('/_set_user_answers', methods=['POST'])
 def _set_user_answers():
     answers = request.json["answers"]
+    user = current_user
 
     for question_id, answer in answers.items():
         answer = Answer(question_id, answer["val"], answer["weight"])
-        current_user._answers.append(answer)
+        user._answers.append(answer)
         db.session.add(answer)
     db.session.commit()
+    user.set_has_answered(True)
 
     return ""
 

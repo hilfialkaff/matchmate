@@ -46,3 +46,6 @@ class User(db.Model):
 
     def set_mate_gender(self, mate_gender):
         self._mate_gender = mate_gender
+
+    def set_has_answered(self, has_answered)
+        self._has_answered = has_answered
