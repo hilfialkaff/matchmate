@@ -35,11 +35,11 @@ def details():
 @app.route('/_get_facebook_login')
 def _get_facebook_login():
     facebook_id = request.args.get('facebook_id', False, type=int)
-    username = request.args.get('name', '', type=str)
+    facebook_name = request.args.get('name', '', type=str)
 
-    user = User.query.filter_by(_username = username).first()
+    user = User.query.filter_by(_facebook_name = facebook_name).first()
     if not user:
-        user = User(username, facebook_id)
+        user = User(facebook_name, facebook_id)
         db.session.add(user)
         db.session.commit()
     login_user(user)
