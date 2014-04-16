@@ -30,6 +30,7 @@ function getMatchslitID( _matchslitJSON )
 function getMatchslitClass( _matchslitJSON )
 {
 	return "matchslit" + " " +
+		"matchslit-" + (_matchslitJSON[ "val" ] ? "yes" : "no") + " " +
 		"category-" + CATID2CATABBREV[ _matchslitJSON["category"] ];
 }
 
@@ -49,21 +50,31 @@ function renderMatchbar( _destDivID, _matchbarJSON )
 	var cDestDivWidth = $( cDestDivID ).width();
 	var cDestDivHeight = $( cDestDivID ).height();
 
-	var cMatchslitWidth = cDestDivWidth;
-	var cMatchslitHeight = Math.floor( cDestDivHeight / MAX_MATCHSLIT_COUNT );
+	var cMatchslitMaxWidth = cDestDivWidth;
+	var cMatchslitMaxHeight = Math.floor( cDestDivHeight / MAX_MATCHSLIT_COUNT );
+
+	var cGetMatchslitY = function( _matchslitJSON )
+	{
+		var matchslitID = _matchslitJSON[ "qid" ] - 1;
+		var matchslitCATID = _matchslitJSON[ "category" ] - 1;
+
+		return ( cMatchslitMaxHeight * matchslitID ) +
+			( 5 * cMatchslitMaxHeight * matchslitCATID );
+	};
 
 	// Functionality //
 	var destElement = d3.select( cDestDivID ).append( "svg" )
 		.attr( "class", "matchbar" );
+
 	var matchslitElements = destElement.selectAll( "matchslit" )
 		.data( _matchbarJSON ).enter().append( "rect" )
 		.attr( "id", getMatchslitID )
 		.attr( "class", getMatchslitClass )
 		.attr( "x", 0 )
-		.attr( "y", 0 );
-		/*.attr( "width", cMatchslitWidth )
-		.attr( "height", cMatchslitHeight );
-		.attr( "rx", )
+		.attr( "y", cGetMatchslitY )
+		.attr( "width", cMatchslitMaxWidth )
+		.attr( "height", cMatchslitMaxHeight );
+		/*.attr( "rx", )
 		.attr( "ry", )
 		.attr( "stroke-width", );*/
 }
