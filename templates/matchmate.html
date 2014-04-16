@@ -34,6 +34,46 @@
                 width: 100%;
                 height: 1px;
             }
+
+            .main {
+                width: 100%;
+                margin-top: 10px;
+                overflow: auto;
+            }
+
+            .list {
+                float: left;
+                width: 200px;
+                color: #fff;
+                border-right: 1px solid white;
+            }
+
+            .list .user:hover {
+                text-decoration: underline;
+                cursor: pointer;
+            }
+
+            .vis {
+                float: left;
+                width: 600px;
+                overflow: auto;
+            }
+
+            .vis .other {
+                display: inline-block;
+                width: 200px;
+            }
+
+            .vis .compatibility {
+                display: inline-block;
+                width: 50px;
+                color: #fff;
+            }
+
+            .vis .me {
+                display: inline-block;
+                width: 200px;
+            }
         </style>
     </head>
     <body>
@@ -42,6 +82,56 @@
             <h2 class="subtitle">Le Main View</h2>
             <div class="separator"></div>
         </div>
+        <div class="main">
+            <div class="list">
+            </div>
+            <div class="vis">
+                <div class="other"></div>
+                <div class="compatibility"></div>
+                <div class="me"></div>
+            </div>
+        </div>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+        <script src="../static/js/matchmate-globals.js"></script>
+        <script>
+            function showCompatibility(uid) {
+               $.get('/_do_algorithm', {"user2": uid}, function(data) {
+                    data = $.parseJSON(data);
+                    var match = data["match"];
+                    match = match.toFixed(4);
+                    match *= 100.0;
+
+                    d3.select(".compatibility")
+                        .text(match + "%");
+               });
+            }
+
+            function displayUserList() {
+                $.get('/_get_other_users', function(data) {
+                    data = $.parseJSON(data);
+                    var users = data.users;
+
+                    $(".list").html('');
+                    var list = d3.select('.list');
+
+                    list.selectAll('.user')
+                        .data(users)
+                        .enter()
+                            .append('div')
+                            .attr('class', 'user')
+                            .text(function(d) { return d.name; })
+                            .on('click', function(d) {
+                                showCompatibility(d.id);
+                            });
+
+                });
+            }
+
+
+
+            // TODO: add this to a refresh button
+            displayUserList();
+        </script>
     </body>
 </html>
