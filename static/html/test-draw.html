@@ -1,6 +1,9 @@
+<!DOCTYPE html>
 <html>
 	<head>
 		<title>Draw Testing</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-8"> 
+
 		<link rel="stylesheet" type="text/css" href="../css/main.css">
 		<style type="text/css">
 			.test-container {
@@ -17,10 +20,13 @@
 		</div>
 
 		<script src="../js/d3.v3.min.js"></script>
-		<script src="../js/matchmate-draw.js"></script>
+		<script src="../js/jquery-1.11.0.min.js"></script>
 		<script src="../js/matchmate-data.js"></script>
+		<script src="../js/matchmate-draw.js"></script>
 		<script>
-			renderMatchbar( false, false );
+			$( document ).ready( function() {
+				renderMatchbar( "test", TEST_MATCHBAR_INT );
+			} );
 		</script>
 	</body>
 </html>
