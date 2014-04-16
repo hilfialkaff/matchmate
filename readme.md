@@ -1,7 +1,7 @@
 # MatchMate: A Visualization of One's Relationship Values #
 
 ## Overview ##
-MatchMate is an application that aims to visualize what one values in a 
+MatchMate is an application that aims to visualize what one values in a
 relationship and, based on this information, the relationship compatability
 between oneself and others.  The visualization utilizes compatabiltiy
 algorithms inspired by two primary sources: the [OkCupid compatability
@@ -9,7 +9,7 @@ algorithm][ok-cupid] and the [Five Languages of Love theory][5languages].
 
 This visualization can be viewed by either accessing the currently running
 instance available on the web or by running the application on your local
-machine.  The running instance of MatchMate can be found [here][matchmate] 
+machine.  The running instance of MatchMate can be found [here][matchmate]
 and instructions for installing the application can be found below.
 
 ## Installation ##
@@ -39,7 +39,7 @@ an instance of the visualization on a machine:
 
 ### Running Instructions ###
 Once all the proper dependencies are installed, the visualization can
-be viewed by running the commands `source ./venv/bin/activate` and `make server` 
+be viewed by running the commands `source ./venv/bin/activate` and `make server`
 from the base directory of the visualization source and opening a web browser to
 the address [localhost:8008][localhost].
 
@@ -50,7 +50,7 @@ contributions:
 - Efe Karakus (karakus1)
     - TODO
 - Hilfi Alkaff (alkaff2)
-    - TODO
+    - Wrote the backend like a boss
 - Helen Zhou (hzhou27)
     - TODO
 - Josh Friedman (friedm13)
@@ -63,7 +63,7 @@ contributions:
 [5languages]: http://www.5lovelanguages.com/
 [matchmate]: http://efekarakus.com:5000/
 
-[py]: http://www.python.org/download/releases/2.7.6/ 
+[py]: http://www.python.org/download/releases/2.7.6/
 [py-flask]: http://flask.pocoo.org/
 [py-venv]: https://pypi.python.org/pypi/virtualenv
 [pip]: http://www.tornadoweb.org/en/stable/
