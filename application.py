@@ -42,14 +42,6 @@ def configure_login_manager():
         session['error'] = login_manager.login_message
         return redirect(url_for('home'))
 
-@app.before_request
-def before_request():
-    """ Look up the current user so that we know he's there. """
-    g.user = None
-
-    if 'user_id' in session:
-        g.user = current_user
-
 @login_manager.user_loader
 def load_user(user_id):
     from models.user import User
