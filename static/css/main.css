@@ -1,5 +1,7 @@
 /* Primary Stylings */
 
+@import url(http://fonts.googleapis.com/css?family=Quicksand:300,400,700);
+
 body {
     background-image: url('background.png');
     background-repeat: repeat;
