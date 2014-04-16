@@ -26,10 +26,12 @@ def main():
     import models
 
     args = parser.parse_args()
-    if args.reset_db:
-        db.drop_all()
 
     app = create_app()
+    if args.reset_db:
+        db.drop_all()
+    db.create_all()
+
     populate()
     app.run(host=app.config['HOST'], port=app.config['PORT'])
 

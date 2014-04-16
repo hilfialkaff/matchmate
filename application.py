@@ -17,9 +17,6 @@ def create_app():
     configure_errorhandlers()
     configure_login_manager()
 
-    import models
-    db.create_all()
-
     return app
 
 def configure_errorhandlers():
