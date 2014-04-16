@@ -18,7 +18,6 @@ def create_app():
     configure_login_manager()
 
     import models
-    db.drop_all()
     db.create_all()
 
     return app
