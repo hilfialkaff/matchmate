@@ -18,20 +18,15 @@
  */
 var MAX_MATCHSLIT_COUNT = 25;
 
+/**
+ * A dictionary containing the mapping from the question category IDs stored in
+ * the database to question category strings.
+ */
+var CATID2CATSTRING = { 0 : "qt", 1 : "pt", 2 : "woa", 3 : "rg", 4 : "aos" };
 
 /// Module Functions ///
 
 // Helper Functions //
-
-/**
- * Given the numerical identifier for a category, this function returns the
- * string for this category.
- */
-function getCategoryString( _categoryNumber )
-{
-	var catid2catstring = { 0 : "qt", 1 : "pt", 2 : "woa", 3 : "rg", 4 : "aos" };
-	return catid2catstring[ _categoryNumber ];
-}
 
 /**
  * Given the JSON object representing a particular match slit, this function
@@ -48,7 +43,8 @@ function getMatchslitID( _matchslitJSON )
  */
 function getMatchslitClass( _matchslitJSON )
 {
-	return "matchslit " + getCategoryString( _matchslitJSON["category"] );
+	return "matchslit" + " " +
+		"category-" + CATID2CATSTRING[ _matchslitJSON["category"] ];
 }
 
 // Primary Functions //
@@ -71,17 +67,18 @@ function renderMatchbar( _destDivID, _matchbarJSON )
 	var cMatchslitHeight = Math.floor( cDestDivHeight / MAX_MATCHSLIT_COUNT );
 
 	// Functionality //
-	var destElement = d3.select( cDestDivID );
+	var destElement = d3.select( cDestDivID ).append( "svg" )
+		.attr( "class", "matchbar" );
 	var matchslitElements = destElement.selectAll( "matchslit" )
 		.data( _matchbarJSON ).enter().append( "rect" )
 		.attr( "id", getMatchslitID )
 		.attr( "class", getMatchslitClass )
 		.attr( "x", 0 )
-		.attr( "y", 0 )
-		.attr( "width", cMatchslitWidth )
-		.attr( "height", cMatchslitHeight )
+		.attr( "y", 0 );
+		/*.attr( "width", cMatchslitWidth )
+		.attr( "height", cMatchslitHeight );
 		.attr( "rx", )
 		.attr( "ry", )
-		.attr( "stroke-width", );
+		.attr( "stroke-width", );*/
 }
 
