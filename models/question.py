@@ -5,7 +5,7 @@ class Question(db.Model):
 
     _id = db.Column(db.Integer, db.Sequence('question_id_seq'), primary_key=True)
     _name = db.Column(db.String(100), nullable=False)
-    _type = db.Column(db.String(100), unique=True)
+    _type = db.Column(db.Integer, unique=True)
 
     def __init__(self, name, type):
         self._name = name

@@ -6,7 +6,6 @@ from application import app, db
 from models.user import User
 from models.question import Question
 from models.answer import Answer
-from models.category import Category
 
 @app.route('/')
 def home():
