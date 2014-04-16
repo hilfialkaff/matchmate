@@ -1,8 +1,8 @@
 <html>
     <head>
         <title> Match Mate </title>
-        <link rel="stylesheet" type="text/css" href="../static/css/main.css">
         <link rel="stylesheet" type="text/css" href="../static/css/jquery.qtip.min.css">
+        <link rel="stylesheet" type="text/css" href="../static/css/main.css">
         
         <link href='http://fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
         <style type="text/css">
@@ -179,12 +179,12 @@
                         "weight": weight
                     }];
 
-                    renderMatchbar("segment", a);
 
                     // send answers if at the last question
                     if (currentIndex === questions.length - 1) {
                         submitAnswers();
                     } else {
+                        renderMatchbar("segment", a);
                         currentIndex += 1;
                         show();
                     }
