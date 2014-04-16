@@ -54,7 +54,7 @@ def _set_user_info():
     user = g.user
     actual_name = request.args.get('name', "", type=str)
     gender = request.args.get('gender', None, type=bool)
-    mate_gender = request.args.get('mate_gender', None type=bool)
+    mate_gender = request.args.get('mate_gender', None, type=bool)
 
     user.set_actual_name(actual_name)
     user.set_gender(gender)
@@ -86,7 +86,7 @@ def _get_other_users():
 def _get_user_info():
     user = User.query.filter_by(_id = g.user._id).first()
     response = json.dumps({"name" : user._actual_name, "gender" : user._gender, \
-        "mate_gender" : user._mate_gender}))
+        "mate_gender" : user._mate_gender})
 
     return response
 
