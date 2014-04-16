@@ -2,8 +2,10 @@ import argparse
 
 from application import create_app, db
 from models import Question
+from models import Category
 
 QUESTION_FILE = "./files/questions.csv"
+CATEGORY_FILE = "./files/categories.csv"
 
 def populate():
     questions_exist = Question.query.all()
@@ -16,6 +18,14 @@ def populate():
             new_question = Question(question, type)
 
             db.session.add(new_question)
+        db.session.commit()
+
+    with open(CATEGORY_FILE) as f:
+        for line in f:
+            [_, category] = line.strip('\n').split(',')
+            new_category = Category(category)
+
+            db.session.add(new_category)
         db.session.commit()
 
 def main():

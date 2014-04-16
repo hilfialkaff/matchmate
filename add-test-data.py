@@ -3,19 +3,6 @@ from models import *
 
 QUESTION_FILE = "./files/questions.csv"
 
-def populate():
-    questions_exist = Question.query.all()
-    if questions_exist:
-        return
-
-    with open(QUESTION_FILE) as f:
-        for line in f:
-            [question, type] = line.strip('\n').split(',')
-            new_question = Question(question, type)
-
-            db.session.add(new_question)
-        db.session.commit()
-
 def main():
     user1 = User('x', 123, 'x', True)
     user2 = User('y', 124, 'y', True)
