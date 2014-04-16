@@ -176,4 +176,4 @@ def _find_best_mate():
             best_match = user
 
     answers = get_user_answer(best_match)
-    return json.dumps({"id" : user._id, "name" : user._actual_name, "answers:" : answers})
+    return json.dumps({"id" : user._id, "name" : user._actual_name, "answers" : answers})

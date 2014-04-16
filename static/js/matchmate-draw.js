@@ -69,6 +69,7 @@ function getMatchslitTooltip( _matchslitJSON )
  */
 function renderMatchbar( _destDivID, _matchbarJSON )
 {
+
 	// Constant Values //
 	var cDestDivID = "#" + _destDivID;
 	var cDestDivWidth = $( cDestDivID ).width();
