@@ -101,17 +101,13 @@
         <script src="../static/js/matchmate-globals.js"></script>
         <script>
             var currentIndex = 0;
-            var questions = [
-                    {"id": 1, "name": "Are you religious?", "category": 1},
-                    {"id": 2, "name": "Do you smoke?", "category": 1}
-                ];
+            var questions = [];
             var answers = {};
             
             $(".error").hide();
             $(".previous").hide();
 
             $.get("/_get_questions", function(data) {
-                console.log(data);
                 data = $.parseJSON(data);
                 questions = data["questions"];
                 show();
@@ -144,8 +140,6 @@
                         answers[qid]['weight'] = weight;
                     }
 
-                    console.log(answers);
-
                     // send answers if at the last question
                     if (currentIndex === questions.length - 1) {
                         submitAnswers();
@@ -167,7 +161,15 @@
                     }
 
                     function submitAnswers() {
-                        console.log("submit answers!");
+                        $.ajax({ 
+                            type: 'POST',
+                            url: '/_set_user_answers', 
+                            data: JSON.stringify({"answers":answers}, null, '\t'),
+                            contentType: 'application/json;charset=UTF-8', 
+                            success: function(data) {
+                                window.location = "/matchmate"
+                            } 
+                        });
                     }
                 }
 
