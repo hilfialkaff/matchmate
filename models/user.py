@@ -6,7 +6,7 @@ class User(db.Model):
     _id = db.Column(db.Integer, db.Sequence('user_id_seq'), primary_key=True)
     _facebook_name = db.Column(db.String(100), nullable=False, unique=True)
     _facebook_id = db.Column(db.Integer, nullable=False, unique=True)
-    _actual_name = db.Column(db.String(100), nullable=False)
+    _actual_name = db.Column(db.String(100))
     _gender = db.Column(db.Boolean) # True = male
     _mate_gender = db.Column(db.Boolean) # True = male
 
