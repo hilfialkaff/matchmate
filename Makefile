@@ -1,13 +1,16 @@
 INTERPRETER = python
 INTERPRETER_FLAGS = 
 
-PROJECT_DIR = .
-MODEL_DIR = ./models
-CONTROLLER_DIR = ./controllers
-VENV_DIR = ./venv
+VENV = virtualenv
+VENV_FLAGS = --clear --no-site-packages
 
-VENV_SCRIPT = ./bootstrap.sh
-SERVER_SCRIPT = ./run-server.py
+PROJECT_DIR = .
+MODEL_DIR = $(PROJECT_DIR)/models
+CONTROLLER_DIR = $(PROJECT_DIR)/controllers
+VENV_DIR = $(PROJECT_DIR)/venv
+
+SERVER_SCRIPT = $(PROJECT_DIR)/run-server.py
+REQUIREMENTS_FILE = $(PROJECT_DIR)/.requirements.txt
 
 .PHONY : server uninstall clean
 
@@ -22,14 +25,14 @@ install : $(VENV_DIR)
 uninstall :
 	-rm -rf $(VENV_DIR)
 
-$(VENV_DIR) : $(VENV_SCRIPT) $(PROJECT_DIR)/requirements.txt
-	$(VENV_SCRIPT)
+$(VENV_DIR) : $(REQUIREMENTS_FILE)
+	$(VENV) $(VENV_FLAGS) $(VENV_DIR)
+	$(VENV_DIR)/bin/pip install -r $(REQUIREMENTS_FILE)
 
 ## Running Commands ##
 
 server : $(VENV_DIR)
-	source $(VENV_DIR)/bin/activate
-	$(INTERPRETER) $(INTERPRETER_FLAGS) $(SERVER_SCRIPT)
+	$(INTERPRETER) $(INTERPRETER_FLAGS) $(SERVER_SCRIPT) --reset_db
 
 ## Cleanup Commands ##
 
