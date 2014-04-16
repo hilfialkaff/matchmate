@@ -30,7 +30,7 @@ function getMatchslitID( _matchslitJSON )
 function getMatchslitClass( _matchslitJSON )
 {
 	return "matchslit" + " " +
-		"category-" + CATID2CATSTRING[ _matchslitJSON["category"] ];
+		"category-" + CATID2CATABBREV[ _matchslitJSON["category"] ];
 }
 
 // Primary Functions //
