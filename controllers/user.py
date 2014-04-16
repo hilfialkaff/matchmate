@@ -112,9 +112,9 @@ def _get_user_answer():
     answers = []
 
     for answer in user._answers:
-        q_a = answer.join(Answer._question_id)
-        answers.append({"qid" : q_a._question_id, "name" : q_a._name, \
-            "category" : q_a._category_id, "val" : q_a._answer, "weight" : q_a._weight})
+        question = Question.query.filter_by(_id = answer._question_id).first()
+        answers.append({"qid" : question._id, "name" : question._name, \
+            "category" : question._category_id, "val" : answer._answer, "weight" : answer._weight})
 
     return json.dumps({"answers" : answers})
 
