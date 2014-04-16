@@ -94,8 +94,23 @@ def _get_user_info():
 
     return response
 
+@app.route('/_get_questions')
+def _get_questions():
+    questions = Question.query.all()
+    response = json.dumps({'questions' : \
+        [{"id" : q._id, "name" : q._name, "category" : q._category_id} for q in questions]})
+
+    return response
+
 @app.route('/_get_user_answer')
 def _get_user_answer():
     user_id = request.args.get('id', current_user._id, type=int)
     user = User.query.filter_by(_id = user_id).first()
-    return ""
+    answers = []
+
+    for answer in user._answers:
+        q_a = answer.join(Answer._question_id)
+        answers.append({"qid" : q_a._question_id, "name" : q_a._name, \
+            "category" : q_a._category_id, "val" : q_a._answer, "weight" : q_a._weight})
+
+    return json.dumps({"answers" : answers})

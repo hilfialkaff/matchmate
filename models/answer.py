@@ -4,7 +4,7 @@ class Answer(db.Model):
     __tablename__ = 'answers'
 
     _id = db.Column(db.Integer, db.Sequence('answer_id_seq'), primary_key=True)
-    _question_id = db.Column(db.Integer, nullable=False)
+    _question_id = db.Column(db.Integer, db.ForeignKey('questions._id'), nullable=False)
     _answer = db.Column(db.Boolean, nullable=False)
     _weight = db.Column(db.Integer, nullable=False)
     _user_id = db.Column(db.Integer, db.ForeignKey('users._id'))
