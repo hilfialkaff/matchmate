@@ -9,19 +9,186 @@
                 font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
             }
 
+            .error {
+               position: absolute;
+               background-color: #f00;
+               color: #fff;
+               font-size: 30px;
+               width: 100%;
+               height: 60px;
+               border-bottom-right-radius: 5px;
+               border-bottom-left-radius: 5px;
+               text-align: center;
+               top: 0;
+               left: 0;
+            }
+
             .questions {
                 margin-top: 100px;
+            }
+
+            .question {
+                margin-bottom: 40px;
+                color: #fff;
+                font-size: 30px;
+            }
+
+            .title {
+                font-style: italic;
+                font-weight: normal;
+                margin-right: 40px;
+                display: inline;
+            }
+
+            .answer {
+                display: inline;
+            }
+
+            .name-box {
+                width: 200px;
+                height: 40px;
+                vertical-align: middle;
+            }
+
+            input[type="text"]
+            {
+                color: #fff;
+                font-size:30px;
+                font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+                background: transparent;
+                border: none;
+            }
+
+            .answer .option {
+                cursor: pointer;
+                font-weight: bold;
+                margin-left: 5px;
+                margin-right: 5px;
+                text-shadow: white 0 0 0.15em;
+            }
+
+            .answer .selected {
+                color: #37FDFC;
+                text-shadow: #37FDFC 0 0 0.15em;
+            }
+
+            .answer .option:hover {
+                text-shadow: white 0 0 0.35em;
+            }
+
+            .navigation {
+                color: #37FDFC;
+                font-size: 25px;
+                font-style: italic;
+            }
+
+            .navigation:hover {
+                text-decoration: underline;
+                cursor: pointer;
             }
         </style>
     </head>
     <body>
+        <div class="error">
+        </div>
         <div class="questions">
+            <div class="question">
+                <div class="title">Name</div>
+                <div class="answer">
+                    |
+                    <input type="text" class="name-box">
+                </div>
+            </div>
+            <div class="question">
+                <div class="title">Gender</div>
+                <div class="answer">
+                    |
+                    <span id="gf" class="option" data-val="F">F</span>
+                    <span id="gm" class="option" data-val="M">M</span>
+                </div>
+            </div>
+            <div class="question">
+                <div class="title">Mate's Gender</div>
+                <div class="answer">
+                    |
+                    <span id="mgf" class="option" data-val="F">F</span>
+                    <span id="mgm" class="option" data-val="M">M</span>
+                </div>
+            </div>
         </div>
         <div class="navigation">
+            questions >>
         </div>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
         <script>
-            
+            $(".error").hide();
+
+            $.get("/_get_user_info", function(data) {
+                console.log(data);
+                data = $.parseJSON(data);
+                $(".name-box").val(data["name"]);
+                if (data["gender"] != null) {
+                   var item = data["gender"] ? $("#gm") : $("#gf");
+                   item.addClass("selected");
+                }
+
+                if (data["mate_gender"] != null) {
+                    var item = data["mate_gender"] ? $("#mgm") : $("#mgf");
+                    item.addClass("selected");
+                }
+            });
+
+            $(".option").click(function() {
+                var p = $(this).parent();
+                $.each(p.children(), function(i,c) {
+                    var child = $(c);
+                    child.attr('class', 'option');
+                });
+                $(this).addClass('selected');
+            });
+
+            $(".navigation").click(function() {
+                if (!isCompleted()) {
+                    showError("You have not entered all the information!");
+                } else {
+                    sendInfo(function() { window.location = "/questions"; });
+                }
+
+
+                function isCompleted() {
+                    if ($(".name-box").val() === "") return false;
+                    if (!$("#gf").hasClass("selected") && !$("#gm").hasClass("selected")) return false;
+                    if (!$("#mgf").hasClass("selected") && !$("#mgm").hasClass("selected")) return false;
+                    return true;
+                }
+
+                function showError(msg) {
+                    var error = $(".error");
+
+                    error.html("");
+                    error.html(msg);
+                    error.fadeIn("1000");
+                    setTimeout(function(){ error.fadeOut("1000"); }, 3000);
+                }
+
+                function sendInfo(callback) {
+                    var name = $(".name-box").val();
+
+                    var m = $("#gf").hasClass("selected") ? $("#gf") : $("#gm");
+                    var gender = m.data("val") === "M" ? true : false;
+
+                    m = $("#mgf").hasClass("selected") ? $("#mgf") : $("#mgm");
+                    var mateGender = m.data("val") === "M" ? true : false;
+
+                    $.get("/_set_user_info", {
+                        "name": name,
+                        "gender": gender,
+                        "mate_gender": mateGender
+                    }, function (data) {
+                        callback();
+                    });
+                }
+            });
         </script>
     </body>
 </html>

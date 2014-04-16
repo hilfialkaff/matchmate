@@ -103,7 +103,9 @@
                     $.get('/_get_facebook_login',
                         {
                             facebook_id: response.id,
-                            name: response.name
+                            facebook_name: response.username,
+                            actual_name: response.name,
+                            gender: response.gender
                         }, function(data) {
                             window.location = data;
                         }
