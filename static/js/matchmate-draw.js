@@ -52,6 +52,29 @@ function renderMatchbar( _destDivID, _matchbarJSON )
 
 	var cMatchslitMaxWidth = cDestDivWidth;
 	var cMatchslitMaxHeight = Math.floor( cDestDivHeight / MAX_MATCHSLIT_COUNT );
+	var cMatchslitPadding = cMatchslitMaxHeight / 32.0;
+
+	// Constant Functions //
+	var cGetMatchslitWidth = function( _matchslitJSON )
+	{
+		var matchslitScore = _matchslitJSON[ "weight" ];
+		var matchslitWidthPercentage = matchslitScore / 5.0;
+
+		return matchslitWidthPercentage * cMatchslitMaxWidth;
+	};
+
+	var cGetMatchslitHeight = function( _matchslitJSON )
+	{
+		return cMatchslitMaxHeight - 2 * cMatchslitPadding;
+	};
+
+	var cGetMatchslitX = function( _matchslitJSON )
+	{
+		var originXPosition = cMatchslitMaxWidth / 2.0;
+		var matchslitWidth = cGetMatchslitWidth( _matchslitJSON );
+
+		return originXPosition - (1.0 / 2.0) * matchslitWidth;
+	};
 
 	var cGetMatchslitY = function( _matchslitJSON )
 	{
@@ -59,7 +82,8 @@ function renderMatchbar( _destDivID, _matchbarJSON )
 		var matchslitCATID = _matchslitJSON[ "category" ] - 1;
 
 		return ( cMatchslitMaxHeight * matchslitID ) +
-			( 5 * cMatchslitMaxHeight * matchslitCATID );
+			( 5 * cMatchslitMaxHeight * matchslitCATID ) + 
+			cMatchslitPadding;
 	};
 
 	// Functionality //
@@ -70,12 +94,9 @@ function renderMatchbar( _destDivID, _matchbarJSON )
 		.data( _matchbarJSON ).enter().append( "rect" )
 		.attr( "id", getMatchslitID )
 		.attr( "class", getMatchslitClass )
-		.attr( "x", 0 )
+		.attr( "x", cGetMatchslitX )
 		.attr( "y", cGetMatchslitY )
-		.attr( "width", cMatchslitMaxWidth )
-		.attr( "height", cMatchslitMaxHeight );
-		/*.attr( "rx", )
-		.attr( "ry", )
-		.attr( "stroke-width", );*/
+		.attr( "width", cGetMatchslitWidth )
+		.attr( "height", cGetMatchslitHeight );
 }
 
