@@ -78,7 +78,6 @@ def _set_user_answers():
         user._answers.append(answer)
         db.session.add(answer)
     db.session.commit()
-    user.set_has_answered(True)
 
     return ""
 

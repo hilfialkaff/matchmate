@@ -36,7 +36,7 @@ class User(db.Model):
         return unicode(self._id)
 
     def has_answered(self):
-        return self._has_answered
+        return True if len(self._answers) else False
 
     def set_actual_name(self, actual_name):
         self._actual_name = actual_name
@@ -46,6 +46,3 @@ class User(db.Model):
 
     def set_mate_gender(self, mate_gender):
         self._mate_gender = mate_gender
-
-    def set_has_answered(self, has_answered)
-        self._has_answered = has_answered

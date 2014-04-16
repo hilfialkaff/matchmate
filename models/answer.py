@@ -9,6 +9,8 @@ class Answer(db.Model):
     _weight = db.Column(db.Integer, nullable=False)
     _user_id = db.Column(db.Integer, db.ForeignKey('users._id'))
 
+    WEIGHTS = [0, 1, 10, 50, 250]
+
     def __init__(self, question_id, answer, weight):
         self._question_id = question_id
         self._answer = answer
