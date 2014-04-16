@@ -8,7 +8,6 @@
  * @TODO
  * - Change the return types of position values to be strings containing
  *   percentages instead of raw numbers to support dynamic resizing.
- * - Change the stylings of the tooltips to match the given design.
  */
 
 /// Module Constants ///
