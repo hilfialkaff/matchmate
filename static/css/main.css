@@ -1,5 +1,7 @@
 /* Primary Stylings */
 
+@import url(http://fonts.googleapis.com/css?family=Quicksand:300,400,700);
+
 body {
     background-image: url('background.png');
     background-repeat: repeat;
@@ -57,3 +59,16 @@ body {
 	fill: #da66ff;
 }
 
+.error {
+    position: absolute;
+    background-color: #f00;
+    color: #fff;
+    font-size: 30px;
+    width: 100%;
+    height: 60px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    text-align: center;
+    top: 0;
+    left: 0;
+}
