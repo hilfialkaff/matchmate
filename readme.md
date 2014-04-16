@@ -39,9 +39,9 @@ an instance of the visualization on a machine:
 
 ### Running Instructions ###
 Once all the proper dependencies are installed, the visualization can
-be viewed by running the command `make server` from the base directory 
-of the visualization source and opening a web browser to the address 
-[localhost:8008][localhost].
+be viewed by running the commands `source ./venv/bin/activate` and `make server` 
+from the base directory of the visualization source and opening a web browser to
+the address [localhost:8008][localhost].
 
 ## Credits ##
 The following is a listing of those involved with the project along with their
