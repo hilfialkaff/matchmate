@@ -124,8 +124,9 @@
             $(".error").hide();
 
             $.get("/_get_user_info", function(data) {
+                console.log(data);
+                data = $.parseJSON(data);
                 $(".name-box").val(data["name"]);
-                
                 if (data["gender"] != null) {
                    var item = data["gender"] ? $("#gm") : $("#gf");
                    item.addClass("selected");

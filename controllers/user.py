@@ -36,11 +36,16 @@ def details():
 def _get_facebook_login():
     facebook_id = request.args.get('facebook_id', False, type=int)
     facebook_name = request.args.get('facebook_name', '', type=str)
-    actual_name = facebook_name = request.args.get('actual_name', '', type=str)
+    actual_name = request.args.get('actual_name', '', type=str)
+    gender  = request.args.get('gender', '', type=str)
+
+    if (gender == "male"): gender = True
+    elif (gender == "female"): gender = False
+    else: gender = None
 
     user = User.query.filter_by(_facebook_name = facebook_name).first()
     if not user:
-        user = User(facebook_name, facebook_id, actual_name)
+        user = User(facebook_name, facebook_id, actual_name, gender)
         db.session.add(user)
         db.session.commit()
     login_user(user)
@@ -63,6 +68,7 @@ def _set_user_info():
 
     db.session.add(user)
     db.session.commit()
+    return ""
 
 @app.route('/_set_user_answers')
 def _set_user_answers():

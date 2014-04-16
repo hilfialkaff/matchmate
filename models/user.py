@@ -13,10 +13,11 @@ class User(db.Model):
     _has_answered = db.Column(db.Boolean)
     _answers = db.relationship("Answer", backref="user", cascade="all, delete, delete-orphan")
 
-    def __init__(self, facebook_name, facebook_id, actual_name):
+    def __init__(self, facebook_name, facebook_id, actual_name, gender):
         self._facebook_name = facebook_name
         self._facebook_id = facebook_id
         self._actual_name = actual_name
+        self._gender = gender
         self._has_answered = False
 
     def __repr__(self):
