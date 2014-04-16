@@ -115,6 +115,11 @@ def _get_questions():
 def _get_user_answer():
     user_id = request.args.get('id', current_user._id, type=int)
     user = User.query.filter_by(_id = user_id).first()
+    answers = get_user_answer(user)
+
+    return json.dumps({"answers" : answers})
+
+def get_user_answer(user):
     answers = []
 
     for answer in user._answers:
@@ -122,7 +127,7 @@ def _get_user_answer():
         answers.append({"qid" : question._id, "name" : question._name, \
             "category" : question._category_id, "val" : answer._answer, "weight" : answer._weight})
 
-    return json.dumps({"answers" : answers})
+    return answers
 
 @app.route('/_do_algorithm')
 def _do_algorithm():
@@ -132,6 +137,10 @@ def _do_algorithm():
     user1 = User.query.filter_by(_id = user1_id).first()
     user2 = User.query.filter_by(_id = user2_id).first()
 
+    match = compute_match(user1, user2)
+    return json.dumps({"match" : match})
+
+def compute_match(user1, user2):
     user1_score = 0.0
     user2_score = 0.0
     user1_max_score = 0
@@ -150,4 +159,21 @@ def _do_algorithm():
         user2_max_score = 1
 
     match = ((user1_score / user1_max_score) * (user2_score / user2_max_score))**0.5
-    return json.dumps({"match" : match})
+    return match
+
+@app.route('/_find_best_mate')
+def _find_best_mate():
+    users = User.query.filter_by(_gender = current_user._mate_gender) \
+        .filter(User._id != current_user._id).all()
+
+    best_score = 0.0
+    best_match = None
+
+    for user in users:
+        score = compute_match(current_user, user)
+        if score > best_score:
+            best_score = score
+            best_match = user
+
+    answers = get_user_answer(best_match)
+    return json.dumps({"id" : user._id, "name" : user._actual_name, "answers" : answers})
