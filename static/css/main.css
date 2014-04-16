@@ -20,12 +20,21 @@ body {
 	/* NOTE: Sizing Styles in Drawing Functionality */
 }
 
+.matchlist-tooltip {
+	font-size: 12px;
+	font-family: ;
+	font-weight: 100;
+
+	color: #ffffff;
+    background-color: #49444a;
+}
+
 .matchslit-yes {
 	opacity: 0.7;
 }
 
 .matchslit-no {
-	opacity: 0.3;
+	opacity: 0.4;
 }
 
 .category-qt {
