@@ -68,15 +68,17 @@ def _set_user_info():
     db.session.commit()
     return ""
 
-@app.route('/_set_user_answers')
+@app.route('/_set_user_answers', methods=['POST'])
 def _set_user_answers():
-    answers = request.args.get('questions')
+    answers = request.json["answers"]
 
     for question_id, answer in answers.items():
-        answer = Answer(question_id, answer['val'], answer['weight'])
-        current_user.answers.append(answer)
+        answer = Answer(question_id, answer["val"], answer["weight"])
+        current_user._answers.append(answer)
         db.session.add(answer)
     db.session.commit()
+
+    return ""
 
 @app.route('/_get_other_users')
 def _get_other_users():
