@@ -117,3 +117,31 @@ def _get_user_answer():
             "category" : q_a._category_id, "val" : q_a._answer, "weight" : q_a._weight})
 
     return json.dumps({"answers" : answers})
+
+@app.route('/_do_algorithm')
+def _do_algorithm():
+    user1_id = request.args.get('user1', current_user._id, type=int)
+    user2_id = request.args.get('user2', None, type=int)
+
+    user1 = User.query.filter_by(_id = user1_id).first()
+    user2 = User.query.filter_by(_id = user2_id).first()
+
+    user1_score = 0.0
+    user2_score = 0.0
+    user1_max_score = 0
+    user2_max_score = 0
+
+    for user1_answer, user2_answer in zip(user1._answers, user2._answers):
+        if user1_answer._answer == user2_answer._answer:
+            user1_score += Answer.WEIGHTS[user2_answer._weight-1]
+            user2_score += Answer.WEIGHTS[user1_answer._weight-1]
+        user1_max_score += Answer.WEIGHTS[user2_answer._weight-1]
+        user2_max_score += Answer.WEIGHTS[user1_answer._weight-1]
+
+    if user1_max_score == 0:
+        user1_max_score = 1
+    if user2_max_score == 0:
+        user2_max_score = 1
+
+    match = ((user1_score / user1_max_score) * (user2_score / user2_max_score))**0.5
+    return json.dumps({"match" : match})
