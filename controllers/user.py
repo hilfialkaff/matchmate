@@ -19,6 +19,9 @@ def home():
 @app.route('/questions')
 @login_required
 def questions():
+    if current_user.has_answered():
+        return redirect(url_for('matchmate'))
+
     return render_template('questions.html')
 
 @app.route('/matchmate')
@@ -29,6 +32,9 @@ def matchmate():
 @app.route('/details')
 @login_required
 def details():
+    if current_user.has_answered():
+        return redirect(url_for('matchmate'))
+
     return render_template('details.html')
 
 @app.route('/_get_facebook_login')

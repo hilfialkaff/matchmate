@@ -10,7 +10,6 @@ class User(db.Model):
     _gender = db.Column(db.Boolean) # True = male
     _mate_gender = db.Column(db.Boolean) # True = male
 
-    _has_answered = db.Column(db.Boolean)
     _answers = db.relationship("Answer", backref="user", cascade="all, delete, delete-orphan")
 
     def __init__(self, facebook_name, facebook_id, actual_name, gender):
@@ -18,7 +17,6 @@ class User(db.Model):
         self._facebook_id = facebook_id
         self._actual_name = actual_name
         self._gender = gender
-        self._has_answered = False
 
     def __repr__(self):
         return '<User %s>' % (self._username)
