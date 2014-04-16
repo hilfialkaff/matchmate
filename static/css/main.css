@@ -11,27 +11,38 @@ body {
 	
 }
 
-.matchbar-slit {
-	
+svg {
+	width: 100%;
+	height: 100%;
 }
 
-.matchbar-slit-woa {
-	
+.matchslit {
+	width: 100%;
+	height: 20%;
 }
 
-.matchbar-slit-aos {
-	
+.category-qt {
+	fill: #ffffff;
+	opacity: 1.0;
 }
 
-.matchbar-slit-rg {
-	
+.category-pt {
+	fill: #ffffff;
+	opacity: 1.0;
 }
 
-.matchbar-slit-qt {
-	
+.category-woa {
+	fill: #ffffff;
+	opacity: 1.0;
 }
 
-.matchbar-slit-pt {
-	
+.category-rg {
+	fill: #ffffff;
+	opacity: 1.0;
+}
+
+.category-aos {
+	fill: #ffffff;
+	opacity: 1.0;
 }
 
