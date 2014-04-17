@@ -50,7 +50,7 @@ contributions:
 - Efe Karakus (karakus1)
     - Wrote the frontend and visualization
 - Hilfi Alkaff (alkaff2)
-    - Wrote the backend like a boss
+    - Wrote the backend
 - Helen Zhou (hzhou27)
     - Designed the web-page and visualization
 - Josh Friedman (friedm13)
