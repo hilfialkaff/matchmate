@@ -91,7 +91,7 @@ def _set_user_answers():
 def _get_other_users():
     users = User.query.filter(User._id != current_user._id).all()
     response = json.dumps({'users':
-        [{"id" : user._id, "name" : user._actual_name} for user in users]})
+        [{"id" : user._id, "name" : user._actual_name} for user in users if user.has_answered()]})
 
     return response
 
