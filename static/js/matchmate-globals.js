@@ -27,10 +27,10 @@ var CATID2CATABBREV = { 1 : "qt", 2 : "pt", 3 : "woa", 4 : "rg", 5 : "aos" };
  * the database to question category strings (used in display).
  */
 var CATID2CATSTRING = { 
-	1 : "Quality Time", 
-	2 : "Physical Touch", 
-	3 : "Words of Affirmation", 
-	4 : "Receiving Gifts",
-	5 : "Acts of Service",
+	1 : "Physical", 
+	2 : "Intellectual", 
+	3 : "Spiritual", 
+	4 : "Communicative",
+	5 : "Social",
 };
 
