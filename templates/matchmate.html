@@ -78,7 +78,7 @@
             }
 
             .list .user.highlight {
-                background-color: rgba(255, 255, 255, 0.1);
+                background-color: rgba(255, 255, 255, 0.2);
             }
 
             .vis {
@@ -192,6 +192,7 @@
                     data = $.parseJSON(data);
                     var match = data["match"];
                     match *= 100.0;
+		    match = Math.round(match);
 
                     d3.select(".compatibility")
                         .text(match + "%");
@@ -252,7 +253,9 @@
 
             $(".search").click(function() {
                 $.get('/_find_best_mate', function(data) {
+		    if (data === "") return;
                     data = $.parseJSON(data);
+		    console.log(data);
                     highlightUser(data["id"]);
                     showCompatibility(data["id"]);
                     renderMatchbar("ovis", data["answers"]);

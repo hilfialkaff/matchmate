@@ -177,7 +177,7 @@ def _find_best_mate():
             best_score = score
             best_match = user
 
-    if best_match == None:
+    if best_match != None:
         answers = get_user_answer(best_match)
         response = json.dumps({"id" : user._id, "name" : user._actual_name, "answers" : answers})
     return response
