@@ -54,6 +54,10 @@
                 margin-bottom: 20px;
             }
 
+            .radio.weights {
+                text-align: left;
+            }
+
             label {
                 padding-left: 10px;
                 margin-right: 17px;
@@ -287,7 +291,7 @@
                     // place the question weight
                     {
                         var weights = qDiv.append('div')
-                            .attr('class', 'radio');
+                            .attr('class', 'radio weights');
 
                         var irr = weights.append('input')
                             .attr('type', 'radio')
@@ -300,6 +304,8 @@
                             .text('Irrelevant')
                             .style('font-size', '18px');
 
+                        weights.append("br");
+
                         var lImp = weights.append('input')
                             .attr('type', 'radio')
                             .attr('id', 'limp-w')
@@ -310,6 +316,8 @@
                             .attr('for', 'limp-w')
                             .text('A little important')
                             .style('font-size', '18px');
+
+                        weights.append("br");
 
                         var sImp = weights.append('input')
                             .attr('type', 'radio')
@@ -322,6 +330,8 @@
                             .text('Somewhat important')
                             .style('font-size', '18px');
 
+                        weights.append("br");
+
                         var vImp = weights.append('input')
                             .attr('type', 'radio')
                             .attr('id', 'vimp-w')
@@ -332,6 +342,8 @@
                             .attr('for', 'vimp-w')
                             .text('Very important')
                             .style('font-size', '18px');
+
+                        weights.append("br");
 
                         var mand = weights.append('input')
                             .attr('type', 'radio')
