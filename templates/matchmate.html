@@ -46,9 +46,13 @@
             .list {
                 float: left;
                 width: 200px;
-                height: 200px;
+                height: 600px;
                 color: #fff;
                 border-right: 1px solid white;
+            }
+
+            .list .users {
+                max-height: 600px;
             }
 
             .filter {
@@ -83,12 +87,12 @@
 
             .vis {
                 float: left;
-                width: 650px;
+                width: 690px;
                 overflow: auto;
             }
 
             .vis .other {
-                margin-left: 5px;
+                margin-left: 60px;
                 width: 200px;
                 height: 600px;
                 float: left;
@@ -255,7 +259,6 @@
                 $.get('/_find_best_mate', function(data) {
 		    if (data === "") return;
                     data = $.parseJSON(data);
-		    console.log(data);
                     highlightUser(data["id"]);
                     showCompatibility(data["id"]);
                     renderMatchbar("ovis", data["answers"]);

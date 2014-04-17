@@ -120,7 +120,10 @@ function renderMatchbar( _destDivID, _matchbarJSON )
 
 	// Create Container SVG //
 	{
+        $(cDestDivID).html('');
+        
 		var destElement = d3.select( cDestDivID ).select( ".matchbar" );
+
 
 		if( destElement.empty() )
 			d3.select( cDestDivID ).append( "svg" ).attr( "class", "matchbar" );
