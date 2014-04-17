@@ -191,7 +191,6 @@
                $.get('/_do_algorithm', {"user2": uid}, function(data) {
                     data = $.parseJSON(data);
                     var match = data["match"];
-                    match = match.toFixed(4);
                     match *= 100.0;
 
                     d3.select(".compatibility")
