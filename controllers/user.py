@@ -164,7 +164,7 @@ def compute_match(user1, user2):
 
 @app.route('/_find_best_mate')
 def _find_best_mate():
-    users = User.query.filter_by(_gender = current_user._mate_gender) \
+    users = User.query.filter_by(_mate_gender = current_user._mate_gender) \
         .filter(User._id != current_user._id).all()
 
     best_score = 0.0
