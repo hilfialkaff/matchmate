@@ -28,7 +28,7 @@ var MATCHSLIT_TRANS_TIME = 800;
  */
 function getMatchslitID( _matchslitJSON )
 {
-	return "matchslit" + _matchslitJSON[ "qid" ];
+	return "matchslit" + _matchslitJSON[ "qid" ] + "-" + _matchslitJSON[ "divid" ];
 }
 
 /**
@@ -70,7 +70,6 @@ function getMatchslitTooltip( _matchslitJSON )
  */
 function renderMatchbar( _destDivID, _matchbarJSON )
 {
-
 	// Constant Values //
 	var cDestDivID = "#" + _destDivID;
 	var cDestDivWidth = $( cDestDivID ).width();
@@ -110,6 +109,15 @@ function renderMatchbar( _destDivID, _matchbarJSON )
 			cMatchslitPadding;
 	};
 
+	// Create Div Matchbar JSON //
+	
+	var divMatchbarJSON = [];
+	for( var matchslitIdx in _matchbarJSON )
+	{
+		var matchslitJSON = _matchbarJSON[ matchslitIdx ];
+		divMatchbarJSON.push( $.extend(true, {"divid": _destDivID}, matchslitJSON) );
+	}
+
 	// Create Container SVG //
 	{
 		var destElement = d3.select( cDestDivID ).select( ".matchbar" );
@@ -120,9 +128,9 @@ function renderMatchbar( _destDivID, _matchbarJSON )
 
 	// Destroy Old Match Slits //
 	{
-		for( var matchslitIdx in _matchbarJSON )
+		for( var matchslitIdx in divMatchbarJSON )
 		{
-			var matchslitJSON = _matchbarJSON[ matchslitIdx ];
+			var matchslitJSON = divMatchbarJSON[ matchslitIdx ];
 			var matchslitElement = d3.select( cDestDivID )
 				.select( "#" + getMatchslitID(matchslitJSON) );
 
@@ -134,7 +142,7 @@ function renderMatchbar( _destDivID, _matchbarJSON )
 	{
 		var destElement = d3.select( cDestDivID ).select( ".matchbar" );
 		var matchslitElements = destElement.selectAll( "secrets" )
-			.data( _matchbarJSON ).enter().append( "rect" )
+			.data( divMatchbarJSON ).enter().append( "rect" )
 			.attr( "id", getMatchslitID )
 			.attr( "class", getMatchslitClass )
 			.attr( "x", cMatchslitMaxWidth / 2.0 )
