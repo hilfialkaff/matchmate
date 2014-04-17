@@ -55,7 +55,8 @@ function getMatchslitTooltip( _matchslitJSON )
 
 	return "Question: "+ cFormatResponse( _matchslitJSON["name"] ) + "</br>" +
 		"Importance: " + cFormatResponse( _matchslitJSON["weight"] + " / 5" ) + "</br>" +
-		"Response: " + cFormatResponse( _matchslitJSON["val"] ? "Yes" : "No" ) + "</br>";
+		"Response: " + cFormatResponse( _matchslitJSON["val"] ? "Yes" : "No" ) + "</br>" + 
+        "Category: " + cFormatResponse(CATID2CATSTRING[ _matchslitJSON["category"] ] ) + "<br/>";
 }
 
 // Primary Functions //
