@@ -1,4 +1,4 @@
-# MatchMate: A Visualization of One's Relationship Values #
+# MatchMate: A Visualization of Ones Relationship Values #
 
 ## Overview ##
 MatchMate is an application that aims to visualize what one values in a
@@ -48,15 +48,15 @@ The following is a listing of those involved with the project along with their
 contributions:
 
 - Efe Karakus (karakus1)
-    - TODO
+    - Wrote the frontend and visualization
 - Hilfi Alkaff (alkaff2)
-    - Wrote the backend like a boss
+    - Wrote the backend
 - Helen Zhou (hzhou27)
-    - TODO
+    - Designed the web-page and visualization
 - Josh Friedman (friedm13)
-    - TODO
+    - Curated questions and formula for the visualization
 - Joe Ciurej (ciurej2)
-    - TODO
+    - Wrote the frontend visualization
 
 
 [ok-cupid]: https://www.okcupid.com/help/match-percentages
