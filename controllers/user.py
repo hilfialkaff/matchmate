@@ -159,13 +159,12 @@ def compute_match(user1, user2):
         user2_max_score = 1
 
     match = ((user1_score / user1_max_score) * (user2_score / user2_max_score))**0.5
-    match = round(match, 2)
     return match
 
 @app.route('/_find_best_mate')
 def _find_best_mate():
     users = User.query.filter_by(_gender = current_user._mate_gender) \
-        .filter_by(_mate_gender = current_user._gender).filter(User._id != current_user._id).all()
+					.filter(User._id != current_user._id).all()
 
     best_score = 0.0
     best_match = None
@@ -179,5 +178,5 @@ def _find_best_mate():
 
     if best_match != None:
         answers = get_user_answer(best_match)
-        response = json.dumps({"id" : user._id, "name" : user._actual_name, "answers" : answers})
+        response = json.dumps({"id" : best_match._id, "name" : best_match._actual_name, "answers" : answers})
     return response
