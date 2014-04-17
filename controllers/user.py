@@ -159,6 +159,7 @@ def compute_match(user1, user2):
         user2_max_score = 1
 
     match = ((user1_score / user1_max_score) * (user2_score / user2_max_score))**0.5
+    match = round(match, 2)
     return match
 
 @app.route('/_find_best_mate')
