@@ -77,7 +77,7 @@ function renderMatchbar( _destDivID, _matchbarJSON )
 
 	var cMatchslitMaxWidth = cDestDivWidth;
 	var cMatchslitMaxHeight = Math.floor( cDestDivHeight / MAX_MATCHSLIT_COUNT );
-	var cMatchslitPadding = cMatchslitMaxHeight / 16.0;
+	var cMatchslitPadding = cMatchslitMaxHeight / 8.0;
 
 	// Constant Functions //
 	var cGetMatchslitWidth = function( _matchslitJSON )
